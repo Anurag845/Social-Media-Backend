@@ -67,7 +67,7 @@ module.exports = {
 
         conn.query(
             'SELECT p.`post_id`,p.`created_at`,p.`user_id`,p.`descr`,p.`likes_count`,p.`comments_count`,UNIX_TIMESTAMP(p.`created_at`) as timestamp, \
-             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked FROM `posts` p, `users` u \
+             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked, u.display_name FROM `posts` p, `users` u \
              WHERE p.`user_id` = u.`user_id` ORDER BY p.`created_at` DESC LIMIT 20 OFFSET ?',
             [
                 parseInt(offset)
@@ -102,7 +102,7 @@ module.exports = {
 
         conn.query(
             'SELECT p.`post_id`,p.`created_at`,p.`user_id`,p.`descr`,p.`likes_count`,p.`comments_count`,UNIX_TIMESTAMP(p.`created_at`) as timestamp, \
-             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked FROM `posts` p, `users` u \
+             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked, u.display_name FROM `posts` p, `users` u \
              WHERE p.`user_id` = u.`user_id` AND p.`user_id` = ?',
              [
                  peer_id
@@ -192,7 +192,7 @@ module.exports = {
 
         conn.query(
             'SELECT p.`post_id`,p.`created_at`,p.`user_id`,p.`descr`,p.`likes_count`,p.`comments_count`,UNIX_TIMESTAMP(p.`created_at`) as timestamp, \
-             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked FROM `posts` p, `users` u \
+             u.`username`,u.`profile_pic`,json_length(p.`attachments`) as no_attachments,p.`attachments`,p.`likes`->\'$.*\' as usersLiked, u.display_name FROM `posts` p, `users` u \
              WHERE p.`user_id` = u.`user_id` AND p.`post_id` = ?',
              [
                  post_id

@@ -183,16 +183,16 @@ module.exports = {
         const {user_id,group_id} = req.body;
 
         conn.query(
-            //'SELECT u.user_id,u.profile_pic,u.display_name FROM users u'
             'SELECT user_id, profile_pic, display_name \
-             FROM users \
-             WHERE user_id IN (SELECT friend_id FROM user_relations WHERE user_id = ?) \
-             AND user_id NOT IN (SELECT user_id FROM group_members WHERE group_id = ?)',
-             //AND user_id NOT IN (SELECT invitee_id FROM group_invitations WHERE group_id = ?)',
+            FROM users \
+            WHERE user_id IN (SELECT friend_id FROM user_relations WHERE user_id = ?) \
+            AND user_id NOT IN (SELECT user_id FROM group_members WHERE group_id = ?) \
+            AND user_id NOT IN (SELECT invitee_id FROM group_invitations WHERE group_id = ? AND requestor_id = ?)',
             [
                 user_id,
                 group_id,
-                //group_id
+                group_id,
+                user_id
             ],
             (error, result) => {
                 if(error) {
