@@ -7,7 +7,7 @@ const moment = require('moment');
 module.exports = {
 
     createPost: async (req, res) => {
-        const {user_id, descr} = req.body;
+        const {user_id,descr,effect_id,effect_name,color1,color2} = req.body;
         let post_id = uuidv4().replace(/-/g, '');
         let timestamp = Date.now();
         let created_at = moment(timestamp).format('YYYY-MM-DD HH:mm:ss');
@@ -18,6 +18,10 @@ module.exports = {
                 var attachment = {};
                 attachment.name = image.filename;
                 attachment.guid = uuidv4().replace(/-/g, '');
+                attachment.effect_id = effect_id;
+                attachment.effect_name = effect_name;
+                attachment.color1 = color1;
+                attachment.color2 = color2;
                 attachments.push(attachment);
             });
         }

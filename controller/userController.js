@@ -1,5 +1,5 @@
 "use strict";
-//created by Hatem Ragap
+
 const Joi = require('joi');
 const passwordHash = require("password-hash");
 const {userSchemaModel} = require('../models/userModel');
@@ -15,6 +15,37 @@ const jwtSecret = process.env.JWTSECRET;
 const uuidv4 = require('uuid').v4;
 
 module.exports = {
+
+    checkIfExists: async (req, res) => {
+        const {email} = req.body;
+
+        conn.query(
+            'SELECT COUNT(*) as count FROM users WHERE email = ?',
+            [
+                email
+            ],
+            (error, result) => {
+                if(error) {
+                    res.status(500).send({
+                        "error": true,
+                        "data": error
+                    });
+                }
+                else if(result[0].count == 1) {
+                    res.status(200).send({
+                        "error": false,
+                        "exists": true
+                    });
+                }
+                else if(result[0].count == 0) {
+                    res.status(200).send({
+                        "error": false,
+                        "exists": false
+                    });
+                }
+            }
+        )
+    },
 
     createUser: async (req, res) => {
         const {email,username,password,first_name,last_name,display_name,birth_date,profile_about,

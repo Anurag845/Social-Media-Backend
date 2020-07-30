@@ -1,5 +1,5 @@
 "use strict";
-//created by Hatem Ragap
+
 const {userSchemaModel} = require("../models/userModel");
 const {commentSchemaModel} = require("../models/commentsModel");
 const {postSchemaModel} = require("../models/postsModel");

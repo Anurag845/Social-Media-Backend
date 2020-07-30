@@ -1,5 +1,5 @@
 "use strict";
-//created by Hatem Ragap
+
 const express = require("express");
 const userRouter = new express.Router();
 const userController = require('../controller/userController');
@@ -15,7 +15,11 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage: storage});
+
+userRouter.post("/checkIfExists", userController.checkIfExists);
+
 userRouter.post("/create", userController.createUser); // /api/user/create
+
 userRouter.post("/login", [
     authController.hasAuthValidFields,
     authController.isPasswordAndUserMatch,
@@ -56,6 +60,5 @@ userRouter.post('/update_user_token', [
     authController.validJWTNeeded,
     userController.updateAndAddUserToken
 ]);
-
 
 module.exports = userRouter;

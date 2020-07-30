@@ -1,5 +1,5 @@
 "use strict";
-//created by Hatem Ragap
+
 const conn = require('../dbconfig/mysql.service.js');
 
 module.exports = {

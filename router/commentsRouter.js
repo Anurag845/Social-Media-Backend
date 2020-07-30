@@ -1,5 +1,5 @@
 "use strict";
-//created by Hatem Ragap
+
 const express = require("express");
 const commentRouter = new express.Router();
 const commentController = require('../controller/commentController');
